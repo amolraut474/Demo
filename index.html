@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            background: radial-gradient(circle, rgb(173 58 115 / 9%) 0%, rgb(66 71 22 / 16%) 100%);
+        }
+
+        .prt {
+            height: 650px;
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+            border-radius: 20px;
+        }
+
+        .section-1 {
+            margin: 130px 0px;
+
+        }
+
+        .Students-Result {
+            text-align: center;
+            color: white;
+            font-size: 55px;
+        }
+
+        input {
+            padding: 10px 0px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        input:focus {
+            background: radial-gradient(circle, rgb(117 10 168) 0%, rgb(36 9 46 / 90%) 100%);
+            color: #fff;
+        }
+
+        button#btSubmit {
+            padding: 12px;
+            color: #fff;
+            font-size: 20px;
+            border-radius: 10px;
+            background: radial-gradient(circle, rgb(117 10 168) 0%, rgb(36 9 46 / 90%) 100%);
+            cursor: pointer;
+        }
+
+        ::placeholder {
+            color: red;
+        }
+
+        button:disabled{
+            background: #cccccc !important;
+    color: red !important;
+        }
+    </style>
+    <title>Document</title>
+</head>
+
+<body>
+    <section class="section-1">
+
+        <div class="container">
+            <div class="row prt">
+
+                <div class="col-lg-6 d-flex flex-column m-0 m-auto gap-4">
+                    <h1 class="Students-Result">Students Result</h1>
+
+                    <input type="text" id="txt1" placeholder="PHP PROGRAMMING" onkeyup="manage(this)" />
+                    <input type="text" id="txt2" placeholder="C PROGRAMMING" onkeyup="manage(this)" />
+                    <input type="text" id="txt3" placeholder="C++ PROGRAMMING" onkeyup="manage(this)" />
+                    <input type="text" id="txt4" placeholder="JAVA PROGRAMMING" onkeyup="manage(this)" />
+                    <input type="text" id="txt5" placeholder="JAVASCRIPT PROGRAMMING" onkeyup="manage(this)" />
+                    <button type="submit" id="btSubmit" disabled>submit</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        let
+        function manage(txt) {
+            var bt = document.getElementById('btSubmit');
+            if (txt5.value && txt1.value && txt2.value && txt3.value && txt4.value != '') {
+                bt.disabled = false;
+            }
+            else {
+                bt.disabled = true;
+            }
+        }
+    </script>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+    crossorigin="anonymous"></script>
+
+</html>
