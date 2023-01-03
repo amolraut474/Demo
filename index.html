@@ -25,7 +25,7 @@
         }
 
         .section-1 {
-            margin: 130px 0px;
+            margin: 130px 0px 40px 0px;
 
         }
 
@@ -59,9 +59,16 @@
             color: red;
         }
 
-        button:disabled{
+        button:disabled {
             background: #cccccc !important;
-    color: red !important;
+            color: red !important;
+        }
+
+        .showdata-1 {
+            background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
+            color: #fff;
+            padding: 10px 0px 5px 0px;
+            border-radius: 30px;
         }
     </style>
     <title>Document</title>
@@ -76,20 +83,39 @@
                 <div class="col-lg-6 d-flex flex-column m-0 m-auto gap-4">
                     <h1 class="Students-Result">Students Result</h1>
 
-                    <input type="text" id="txt1" placeholder="PHP PROGRAMMING" onkeyup="manage(this)" />
-                    <input type="text" id="txt2" placeholder="C PROGRAMMING" onkeyup="manage(this)" />
-                    <input type="text" id="txt3" placeholder="C++ PROGRAMMING" onkeyup="manage(this)" />
-                    <input type="text" id="txt4" placeholder="JAVA PROGRAMMING" onkeyup="manage(this)" />
-                    <input type="text" id="txt5" placeholder="JAVASCRIPT PROGRAMMING" onkeyup="manage(this)" />
-                    <button type="submit" id="btSubmit" disabled>submit</button>
+                    <input type="text" id="txt1" placeholder="PHP PROGRAMMING" onkeyup="manage(this)"
+                        onkeypress="return onlyNumberKey(event)" maxlength="3" onchange="handleChange(this);" />
+                    <input type="text" id="txt2" placeholder="C PROGRAMMING" onkeyup="manage(this)"
+                        onkeypress="return onlyNumberKey(event)" maxlength="3" onchange="handleChange(this);" />
+                    <input type="text" id="txt3" placeholder="C++ PROGRAMMING" onkeyup="manage(this)"
+                        onkeypress="return onlyNumberKey(event)" maxlength="3" onchange="handleChange(this);" />
+                    <input type="text" id="txt4" placeholder="JAVA PROGRAMMING" onkeyup="manage(this)"
+                        onkeypress="return onlyNumberKey(event)" maxlength="3" onchange="handleChange(this);" />
+                    <input type="text" id="txt5" placeholder="JAVASCRIPT PROGRAMMING" onkeyup="manage(this)"
+                        onkeypress="return onlyNumberKey(event)" maxlength="3" onchange="handleChange(this);" />
+                    <button type="submit" id="btSubmit" value="CALCULATE CGPA" class="app-form-button" onclick="calcy()"
+                        disabled>submit</button>
                 </div>
             </div>
         </div>
     </section>
+    <section class="section-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 p-0 text-center">
+                    <div>
+                        <div class="showdata-1" onclick="showHtmlDiv()">
+                            <p id="showData"> </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
 
 
     <script>
-        let
         function manage(txt) {
             var bt = document.getElementById('btSubmit');
             if (txt5.value && txt1.value && txt2.value && txt3.value && txt4.value != '') {
@@ -98,6 +124,102 @@
             else {
                 bt.disabled = true;
             }
+        }
+
+        function onlyNumberKey(evt) {
+
+            // Only ASCII character in that range allowed
+            var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+            if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+                return false;
+            return true;
+        }
+
+        function handleChange(input) {
+            if (input.value < 0) input.value = 0;
+            if (input.value > 100) input.value = 100;
+        }
+
+
+        const calcy = () => {
+            let txt1 = document.getElementById('txt1').value;
+            let txt2 = document.getElementById('txt2').value;
+            let txt3 = document.getElementById('txt3').value;
+            let txt4 = document.getElementById('txt4').value;
+            let txt5 = document.getElementById('txt5').value;
+            let grades = "";
+            let failCount = 0;
+            failCount += txt1 < 33 ? 1 : 0;
+            failCount += txt2 < 33 ? 1 : 0;
+            failCount += txt3 < 33 ? 1 : 0;
+            failCount += txt4 < 33 ? 1 : 0;
+            failCount += txt5 < 33 ? 1 : 0;
+
+            let failedInSubject = failCount > 0;
+            failCountText = `You are Pass in ${5 - failCount} subject & failed in ${failCount} subject`;
+
+            let totalGrades = parseFloat(txt1) + parseFloat(txt2) + parseFloat(txt3) + parseFloat(txt4) + parseFloat(txt5);
+
+            let perc = (totalGrades / 500 * 100).toFixed(2);
+
+            let gp = (perc / 9.5).toFixed(1);
+
+
+            if (perc <= 100 && perc >= 95) {
+                grades = ("10 & Grade is A1");
+            } else if (perc <= 95 && perc >= 91) {
+                grades = gp.concat(" & Grade is A1");
+            } else if (perc <= 90 && perc >= 81) {
+                grades = gp.concat(" & Grade is A2");
+            } else if (perc <= 80 && perc >= 71) {
+                grades = gp.concat(" & Grade is B1");
+            } else if (perc <= 70 && perc >= 61) {
+                grades = gp.concat(" & Grade is B2")
+            } else if (perc <= 60 && perc >= 51) {
+                grades = gp.concat(" & Grade is C1");
+            } else if (perc <= 50 && perc >= 41) {
+                grades = gp.concat(" & Grade is C2");
+            } else if (perc <= 40 && perc >= 33) {
+                grades = gp.concat(" & Grade is D");
+            } else if (perc <= 32 && perc >= 21) {
+                grades = gp.concat(" & Grade is E1");
+            } else if (perc <= 20 && perc >= 00) {
+                grades = gp.concat(" & Grade is E2");
+            }
+
+
+            if (failedInSubject) {
+                document.getElementById('showData').innerHTML = ` Out of 500 your total is  ${totalGrades} and percentage is ${perc}%. <br> Your grade point is ${grades}. ${failCountText}. `
+            } else {
+
+                if (perc <= 100 && perc >= 91) {
+                    document.getElementById('showData').innerHTML = ` Out of 500 your total is  ${totalGrades} and percentage is ${perc}%. <br> Your grade point is ${grades}, You are Pass. `
+                }
+                else if (perc <= 90 && perc >= 81) {
+                    document.getElementById('showData').innerHTML = ` Out of 500 your total is  ${totalGrades} and percentage is ${perc}%. <br> Your grade point is ${grades}. You are Pass. `
+                }
+                else if (perc <= 80 && perc >= 71) {
+                    document.getElementById('showData').innerHTML = ` Out of 500 your total is  ${totalGrades} and percentage is ${perc}%. <br> Your grade point is ${grades}. You are Pass. `
+                }
+                else if (perc <= 70 && perc >= 61) {
+                    document.getElementById('showData').innerHTML = ` Out of 500 your total is  ${totalGrades} and percentage is ${perc}%. <br> Your grade point is ${grades}. You are Pass. `
+                }
+                else if (perc <= 60 && perc >= 51) {
+                    document.getElementById('showData').innerHTML = ` Out of 500 your total is  ${totalGrades} and percentage is ${perc}%. <br> Your grade point is ${grades}. You are Pass. `
+                }
+                else if (perc <= 50 && perc >= 41) {
+                    document.getElementById('showData').innerHTML = ` Out of 500 your total is  ${totalGrades} and percentage is ${perc}%. <br> Your grade point is ${grades}. You are Pass. `
+                }
+                else if (perc <= 40 && perc >= 33) {
+                    document.getElementById('showData').innerHTML = ` Out of 500 your total is  ${totalGrades} and percentage is ${perc}%. <br> Your grade point is ${grades}. You are Pass. `
+                }
+                else if (perc <= 32 && perc >= 21) {
+                    document.getElementById('showData').innerHTML = ` Out of 500 your total is  ${totalGrades} and percentage is ${perc}%. <br> Your grade point is ${grades}. You are Fail. `
+                }
+                else if (perc <= 20 && perc >= 00)
+                    document.getElementById('showData').innerHTML = ` Out of 500 your total is  ${totalGrades} and percentage is ${perc}%. <br> Your grade point is ${grades}. You are Fail. `
+            }
+
         }
     </script>
 </body>
