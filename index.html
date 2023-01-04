@@ -68,7 +68,39 @@
             background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 212, 255, 1) 100%);
             color: #fff;
             padding: 10px 0px 5px 0px;
-            border-radius: 30px;
+            border-radius: 10px;
+        }
+
+        p#showData {
+            font-weight: 700;
+            font-size: 18px;
+        }
+
+        @media(max-width: 425px) {
+            .section-1 {
+                margin: 0px;
+            }
+
+            section.section-2 {
+                margin-top: 25px;
+            }
+
+            .prt {
+                border-radius: 0px;
+                padding: 0px 20px;
+            }
+
+            .showdata-1 {
+                border-radius: 0px;
+            }
+
+            .Students-Result {
+                font-size: 40px;
+            }
+
+            p#showData {
+                padding: 0px 20px;
+            }
         }
     </style>
     <title>Document</title>
@@ -80,7 +112,7 @@
         <div class="container">
             <div class="row prt">
 
-                <div class="col-lg-6 col-md-4 d-flex flex-column m-0 m-auto gap-4">
+                <div class="col-lg-6 col-md-12 d-flex flex-column m-0 m-auto gap-4">
                     <h1 class="Students-Result">Students Result</h1>
 
                     <input type="text" id="txt1" placeholder="PHP PROGRAMMING" onkeyup="manage(this)"
@@ -102,7 +134,7 @@
     <section class="section-2">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 col-md-4 p-0 text-center">
+                <div class="col-lg-12 p-0 text-center">
                     <div>
                         <div class="showdata-1" onclick="showHtmlDiv()">
                             <p id="showData"> </p>
@@ -149,11 +181,11 @@
             let txt5 = document.getElementById('txt5').value;
             let grades = "";
             let failCount = 0;
-            failCount += txt1 < 33 ? 1 : 0;
-            failCount += txt2 < 33 ? 1 : 0;
-            failCount += txt3 < 33 ? 1 : 0;
-            failCount += txt4 < 33 ? 1 : 0;
-            failCount += txt5 < 33 ? 1 : 0;
+            failCount += txt1 < 35 ? 1 : 0;
+            failCount += txt2 < 35 ? 1 : 0;
+            failCount += txt3 < 35 ? 1 : 0;
+            failCount += txt4 < 35 ? 1 : 0;
+            failCount += txt5 < 35 ? 1 : 0;
 
             let failedInSubject = failCount > 0;
             failCountText = `You are Pass in ${5 - failCount} subject & failed in ${failCount} subject`;
@@ -186,8 +218,6 @@
             } else if (perc <= 20 && perc >= 00) {
                 grades = gp.concat(" & Grade is E2");
             }
-
-
             if (failedInSubject) {
                 document.getElementById('showData').innerHTML = ` Out of 500 your total is  ${totalGrades} and percentage is ${perc}%. <br> Your grade point is ${grades}. ${failCountText}. `
             } else {
